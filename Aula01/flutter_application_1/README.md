@@ -1,17 +1,10 @@
-# flutter_application_1
+## Atividade 1
+Desafios para fazer em um aplicativo de filmes
 
-A new Flutter project.
+# Desafio 1 
+O projeto estava sendo desenvolvido com o ListView que cria todos os Widgets de uma vez, mesmo sem estar visíveis, como solução troquei por ListView.builder que vai criando os Widgets assim que aparecem na tela. <br>
+Foram usados tambem os seguintes códigos para montar o `ListView.builder`:
+`itemCount: filmes.lenght` - Para mostrar a quantidade de itens que tem na lista de filmes <br>
+`itemBuilder: (context, index)` - Para construir os itens da lista onde o context são as informações e o index a posição do filme <br>
+`final filme = filme[index]` - Vai pegando os filmes de acordo que vai montando a visualização
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
