@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../models/filme_item.dart';
 
 class FilmesListView extends StatelessWidget {
-  const FilmesListView({super.key, required this.filmes});
+   FilmesListView({super.key, required this.filmes});
 
   final List<FilmeItem> filmes;
+  bool favorito = false;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,19 @@ class FilmesListView extends StatelessWidget {
                       ),
                     ),
                   ),
+                    IconButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Adicionado aos favoritos ❤️"),
+                          ),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                    ),
                 ],
               ),
             ),
