@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
 
-import '../models/filme_item.dart';
+import 'models/filme_item.dart';
 
-class FilmesListView extends StatelessWidget {
-   FilmesListView({super.key, required this.filmes});
+
+@RoutePage()
+class FilmesListViewPage extends StatelessWidget {
+   FilmesListViewPage({super.key, required this.filmes});
 
   final List<FilmeItem> filmes;
   bool favorito = false;
@@ -15,6 +18,11 @@ class FilmesListView extends StatelessWidget {
       itemCount: filmes.length,
       itemBuilder: (context,index){
         final filme = filmes[index];
+    return GestureDetector(
+  onTap: () {
+    // Comando do AutoRoute para navegar passando o objeto filme
+    context.router.push(DetalhesRoute(filme: filme));
+  },
       
           return Center(
             child: Container(
@@ -81,6 +89,7 @@ class FilmesListView extends StatelessWidget {
               ),
             ),
           );
+        );
       },
     );
   }

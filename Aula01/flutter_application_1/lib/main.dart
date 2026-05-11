@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 
 import 'models/filme_item.dart';
 import 'models/tema_item.dart';
-import 'widgets/filmes_listview.dart';
-import 'widgets/temas_gridview.dart';
+import 'filmes_listviewPage.dart';
+import 'widgets/temas_gridviewPage.dart';
 
 const List<TemaItem> temas = <TemaItem>[
   TemaItem(
