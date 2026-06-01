@@ -8,4 +8,22 @@ Com isso nosso APP já reconheceu a API trazendo filmes e informações <br>
 
 # Desafio 2 
 O desafio 2 foi criar um emulador no Android Studio para simularmos o projeto em um dispositivo Mobile. <br>
-Outra parte dessa desafio era rodar o APP no celular, para isso ativei o modo de desenvolvedor e permite depuração USB e assim que conectei no projeto o APP já estava rodando perfeitamente no meu celular.
+Outra parte dessa desafio era rodar o APP no celular, para isso ativei o modo de desenvolvedor e permite depuração USB e assim que conectei no projeto o APP já estava rodando perfeitamente no meu celular. <br>
+
+## Atividade - Aula 04 - Armazenamento local
+Configurar o app para salvar preferências do usuario <br>
+
+# Desafio 1 - Tema escuro e claro
+Foi criado um arquivo: `Theme2` com o tema claro.  <br>
+Criação de uma variavel: ItsDarkMode para verificar se o usuario está no tema branco ou preto, mudando de acordo com um botão <br>
+
+# Desafio 2 - SharedPreferences 
+Foi adicionado os métodos de salvar e recuperar dados no arquivo `prefs.dart`.<br>
+Os métodos adicionados foram: <br>
+- `saveSearch()` e `getSearch()` — para o termo de busca <br>
+- `saveSort()` e `getSort()` — para o critério de ordenação <br>
+Esses métodos foram chamados na tela de gêneros para salvar o ultimo termo pesquisado pelo dispositivo e inicializado com o `initialValue` <br>
+
+# Desafio 3 - SQLite/Drift 
+Foi criado o arquivo `drift_database.dart` com a tabela de favoritos <br>
+Tambem foi criado um método para salvar os favoritos nesse arquivo e mostrar para o usuario na aba de favoritos <br>
