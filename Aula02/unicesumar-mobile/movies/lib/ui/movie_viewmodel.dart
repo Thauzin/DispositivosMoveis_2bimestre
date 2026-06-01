@@ -1,18 +1,22 @@
 import 'package:lumberdash/lumberdash.dart';
-import 'package:movies/data/models/favorite.dart';
-import 'package:movies/data/models/genre.dart';
-import 'package:movies/data/models/movie_credits.dart';
-import 'package:movies/data/models/movie_details.dart';
-import 'package:movies/data/models/movie_response.dart';
-import 'package:movies/data/models/movie_results.dart';
-import 'package:movies/data/models/movie_videos.dart';
+import 'package:movies/data/database_interface.dart';
+import 'package:movies/data/drift/movie_database.dart';
+import 'package:movies/models/favorite.dart';         
+import 'package:movies/models/genre.dart';         
+import 'package:movies/data/models/database_models.dart'; 
+import 'package:movies/models/movie_credits.dart';
+import 'package:movies/models/movie_details.dart';
+import 'package:movies/models/movie_response.dart';
+import 'package:movies/models/movie_results.dart';
+import 'package:movies/models/movie_videos.dart';
 import 'package:movies/network/movie_api_service.dart';
+import 'package:movies/utils/utils.dart';
 
 class MovieViewModel {
   final MovieAPIService movieAPIService;
+  final IDatabase database = DriftDatabase();
+
   List<Genre>? movieGenres;
-  Stream<List<Favorite>>? favoriteStream;
-  List<Favorite>? favoriteList;
   List<MovieResults> trendingMovies = [];
   List<MovieResults> topRatedMovies = [];
   List<MovieResults> popularMovies = [];
@@ -37,65 +41,37 @@ class MovieViewModel {
   }
 
   Stream<List<Favorite>> streamFavorites() {
-    favoriteList ??= [
-      Favorite(
-          movieId: 1,
-          image:
-              'http://image.tmdb.org/t/p/w780/z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg',
-          favorite: false,
-          title: 'Title',
-          overview: 'Overview',
-          popularity: 1.0,
-          releaseDate: DateTime.now()),
-      Favorite(
-          movieId: 2,
-          image:
-              'http://image.tmdb.org/t/p/w780/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',
-          favorite: false,
-          title: 'Title',
-          overview: 'Overview',
-          popularity: 1.0,
-          releaseDate: DateTime.now()),
-      Favorite(
-          movieId: 3,
-          image:
-              'http://image.tmdb.org/t/p/w780/4xJd3uwtL1vCuZgEfEc8JXI9Uyx.jpg',
-          favorite: false,
-          title: 'Title',
-          overview: 'Overview',
-          popularity: 1.0,
-          releaseDate: DateTime.now()),
-      Favorite(
-          movieId: 4,
-          image:
-              'http://image.tmdb.org/t/p/w780/uuA01PTtPombRPvL9dvsBqOBJWm.jpg',
-          favorite: false,
-          title: 'Title',
-          overview: 'Overview',
-          popularity: 1.0,
-          releaseDate: DateTime.now()),
-      Favorite(
-          movieId: 5,
-          image:
-              'http://image.tmdb.org/t/p/w780/H6vke7zGiuLsz4v4RPeReb9rsv.jpg',
-          favorite: false,
-          title: 'Title',
-          overview: 'Overview',
-          popularity: 1.0,
-          releaseDate: DateTime.now()),
-    ];
-    favoriteStream = Stream.value(favoriteList!);
-    return favoriteStream!;
+    return database.streamFavorites().map((dbFavorites) =>
+        dbFavorites.map((f) => Favorite(
+              movieId: f.movieId,
+              image: getImageUrl(ImageSize.large, f.posterPath),
+              favorite: f.favorite,
+              title: f.title,
+              overview: f.overview,
+              popularity: f.popularity,
+              releaseDate: f.releaseDate,
+            )).toList());
   }
 
-  void updateFavorite(Favorite favorite) {
-    final index = favoriteList!
-        .indexWhere((favItem) => favItem.movieId == favorite.movieId);
-    if (index != -1) {
-      favoriteList![index] = favorite;
-    }
+  Future<void> saveFavorite(Favorite favorite, MovieDetails details) async {
+    await database.saveFavorite(DBFavorite(
+      id: 0,
+      movieId: favorite.movieId,
+      backdropPath: details.backdropPath,
+      posterPath: details.posterPath,
+      favorite: true,
+      popularity: favorite.popularity,
+      releaseDate: favorite.releaseDate,
+      title: favorite.title,
+      overview: favorite.overview,
+    ));
   }
 
+  Future<void> removeFavorite(int movieId) async {
+    await database.removeFavorite(movieId);
+  }
+
+  void updateFavorite(Favorite favorite) {}
 
   Future<MovieResponse?> getTrendingMovies(int page) async {
     final response = await movieAPIService.getTrending(page);

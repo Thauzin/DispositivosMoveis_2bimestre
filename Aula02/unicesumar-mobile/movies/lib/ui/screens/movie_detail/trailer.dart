@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movies/data/models/movie_videos.dart';
+import 'package:movies/models/movie_videos.dart';
 
 import 'package:movies/utils/utils.dart';
 

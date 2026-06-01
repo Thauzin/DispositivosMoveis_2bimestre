@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/data/models/movie_videos.dart';
+import 'package:movies/models/movie_videos.dart';
 
 import 'package:movies/ui/main_screen.dart';
 import 'package:movies/ui/screens/favorites/favorite_screen.dart';

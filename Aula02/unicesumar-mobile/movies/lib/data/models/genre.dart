@@ -5,21 +5,16 @@ part 'genre.freezed.dart';
 part 'genre.g.dart';
 
 @freezed
-class Genre with _$Genre {
-  const factory Genre({
+class DBMovieGenre with _$DBMovieGenre {
+  const factory DBMovieGenre({
     required int id,
+    required int remoteId,
     required String name,
-  }) = _Genre;
+  }) = _DBMovieGenre;
 
-  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+  // Add this private constructor
+  const DBMovieGenre._();
+
+  factory DBMovieGenre.fromJson(Map<String, dynamic> json) =>
+      _$DBMovieGenreFromJson(json);
 }
-
-@freezed
-class Genres with _$Genres {
-  const factory Genres({
-    required List<Genre> genres,
-  }) = _Genres;
-
-  factory Genres.fromJson(Map<String, dynamic> json) => _$GenresFromJson(json);
-}
-

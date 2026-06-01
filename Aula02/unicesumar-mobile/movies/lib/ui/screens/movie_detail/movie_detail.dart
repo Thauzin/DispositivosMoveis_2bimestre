@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lumberdash/lumberdash.dart';
-import 'package:movies/data/models/movie_credits.dart';
+import 'package:movies/models/movie_credits.dart';
+import 'package:movies/models/favorite.dart';
 
-import 'package:movies/data/models/movie_details.dart';
-import 'package:movies/data/models/movie_videos.dart';
+import 'package:movies/models/movie_details.dart';
+import 'package:movies/models/movie_videos.dart';
 import 'package:movies/providers.dart';
 import 'package:movies/router/app_routes.dart';
 import 'package:movies/ui/movie_viewmodel.dart';
@@ -48,6 +49,7 @@ class _MovieDetailState extends ConsumerState<MovieDetail> {
   }
 
   Widget buildScreen() {
+    final isDarkMode = ref.watch(themeProvider);
     return FutureBuilder(
         future: loadData(),
         builder: (context, snapshot) {
@@ -65,9 +67,10 @@ class _MovieDetailState extends ConsumerState<MovieDetail> {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                backgroundColor: screenBackground,
+                backgroundColor:
+                    isDarkMode ? const Color(0xFF111111) : Colors.white,
                 leading: BackButton(
-                  color: Colors.white,
+                  color: isDarkMode ? Colors.white : Colors.black,
                   onPressed: () {
                     context.router.maybePopTop();
                   },
@@ -77,7 +80,7 @@ class _MovieDetailState extends ConsumerState<MovieDetail> {
                     style: Theme.of(context).textTheme.headlineMedium),
               ),
               body: Container(
-                color: screenBackground,
+                color: isDarkMode ? const Color(0xFF111111) : Colors.white,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -85,12 +88,10 @@ class _MovieDetailState extends ConsumerState<MovieDetail> {
                       child: CustomScrollView(slivers: [
                         SliverList(
                           delegate: SliverChildListDelegate([
-                            Stack(children: [
-                              DetailImage(details: movieDetails)
-                            ]),
+                            Stack(
+                                children: [DetailImage(details: movieDetails)]),
                             GenreRow(genres: movieDetails.genres),
-                            MovieOverview(
-                                details: movieDetails),
+                            MovieOverview(details: movieDetails),
                             ValueListenableBuilder<bool>(
                               valueListenable: favoriteNotifier,
                               builder: (BuildContext context, bool value,
@@ -99,8 +100,26 @@ class _MovieDetailState extends ConsumerState<MovieDetail> {
                                   favoriteSelected: favoriteNotifier.value,
                                   onFavoriteSelected: () async {
                                     if (favoriteNotifier.value) {
+                                      // ✅ desfavoritar — remove do banco
+                                      await movieViewModel
+                                          .removeFavorite(widget.movieId);
                                       favoriteNotifier.value = false;
                                     } else {
+                                      // ✅ favoritar — salva no banco
+                                      final details =
+                                          snapshot.data as MovieDetails;
+                                      await movieViewModel.saveFavorite(
+                                        Favorite(
+                                          movieId: details.id,
+                                          image: details.posterPath,
+                                          favorite: true,
+                                          title: details.title,
+                                          overview: details.overview,
+                                          popularity: details.popularity,
+                                          releaseDate: details.releaseDate,
+                                        ),
+                                        details,
+                                      );
                                       favoriteNotifier.value = true;
                                     }
                                   },
@@ -118,14 +137,17 @@ class _MovieDetailState extends ConsumerState<MovieDetail> {
                             Trailer(
                               movieVideos: movieVideos?.results,
                               onVideoTap: (video) {
-                                  context.router
-                                      .push(VideoPageRoute(movieVideo: video));
+                                context.router
+                                    .push(VideoPageRoute(movieVideo: video));
                               },
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 16, bottom: 16, top: 16),
-                              child: Text('Cast', style: Theme.of(context).textTheme.headlineLarge),
+                              child: Text('Cast',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge),
                             ),
                           ]),
                         ),

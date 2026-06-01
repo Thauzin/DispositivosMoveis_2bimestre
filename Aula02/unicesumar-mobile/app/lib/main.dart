@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'models/filme_item.dart';
+import '../../movies/lib/models/filme_item.dart';
 import 'models/tema_item.dart';
 import 'widgets/filmes_listview.dart';
 import 'widgets/temas_gridview.dart';

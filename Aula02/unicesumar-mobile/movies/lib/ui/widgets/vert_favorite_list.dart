@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:movies/data/models/favorite.dart';
+import 'package:movies/models/favorite.dart';
 import 'package:movies/utils/utils.dart';
 import 'package:movies/ui/movie_viewmodel.dart';
 import 'package:movies/ui/widgets/favorite_row.dart';

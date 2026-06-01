@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:movies/data/models/movie.dart';
+import 'package:movies/models/movie.dart';
 import 'package:movies/providers.dart';
 import 'package:movies/utils/utils.dart';
 

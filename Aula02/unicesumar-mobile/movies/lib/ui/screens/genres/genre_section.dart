@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movies/data/models/genre.dart';
-
-import 'package:movies/ui/theme/theme.dart';
+import 'package:movies/models/genre.dart';
 import 'package:movies/utils/utils.dart';
+import 'package:movies/providers.dart';
+import 'package:movies/ui/theme/theme.dart';
 
 class GenreState {
   final Genre genre;
@@ -38,6 +38,7 @@ class _GenreSectionState extends ConsumerState<GenreSection> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ref.watch(themeProvider);
     if (chips.isEmpty) {
       chips = getGenreChips();
     }
@@ -53,7 +54,7 @@ class _GenreSectionState extends ConsumerState<GenreSection> {
         children: [
           ExpansionPanel(
             isExpanded: widget.isExpanded,
-            backgroundColor: screenBackground,
+            backgroundColor: isDarkMode ? const Color(0xFF111111) : Colors.white,
             headerBuilder: (BuildContext context, bool isExpanded) {
               return Padding(
                 padding: const EdgeInsets.only(left: 16.0, top: 16),

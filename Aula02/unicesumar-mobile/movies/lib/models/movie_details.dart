@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:movies/data/models/genre.dart';
+import 'package:movies/models/genre.dart';
 
 part 'movie_details.freezed.dart';
 part 'movie_details.g.dart';
@@ -56,4 +56,3 @@ class MovieDetails with _$MovieDetails {
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) => _$MovieDetailsFromJson(json);
 }
-

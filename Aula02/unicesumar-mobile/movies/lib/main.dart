@@ -4,11 +4,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lumberdash/lumberdash.dart';
 import 'package:movies/ui/theme/theme.dart';
-
+import 'package:movies/ui/theme/themeWhite.dart';
+import 'package:movies/utils/prefs.dart';
 import 'package:movies/providers.dart';
 
-/// This is the main entry point for Flutter
-/// Use the runApp method to start your app
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   putLumberdashToWork(withClients: [
@@ -26,16 +25,33 @@ class MainApp extends ConsumerStatefulWidget {
 }
 
 class _MainAppState extends ConsumerState<MainApp> {
+  bool isDarkMode = true;
+
+  @override
+  void initState() {                  
+    super.initState();
+    _carregarTema();                 
+  }
+
+  Future<void> _carregarTema() async { 
+    final temaSalvo = await Prefs.getTheme(); 
+
+    setState(() {
+      isDarkMode = temaSalvo;         
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(appRouterProvider);
+    final isDarkMode = ref.watch(themeProvider);
     return MaterialApp.router(
       routerConfig: router.config(),
       title: 'Movies',
       debugShowCheckedModeBanner: false,
-      theme: createTheme(),
+      theme: isDarkMode             
+          ? createTheme()
+          : createThemeWhite(),
     );
-
   }
 }

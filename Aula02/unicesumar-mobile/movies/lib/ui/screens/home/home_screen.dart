@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movies/data/models/movie_response.dart';
+import 'package:movies/models/movie_response.dart';
 import 'package:movies/providers.dart';
 import 'package:movies/ui/screens/home/title_row.dart';
 
@@ -39,6 +39,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget buildScreen() {
+    final isDarkMode = ref.watch(themeProvider);
     return SafeArea(
       child: FutureBuilder(
         future: loadData(),
@@ -49,7 +50,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           }
           return SingleChildScrollView(
             child: Container(
-              color: screenBackground,
+               color: isDarkMode ? Colors.black : Colors.white,
               child: Column(
                 children: [
                   Padding(

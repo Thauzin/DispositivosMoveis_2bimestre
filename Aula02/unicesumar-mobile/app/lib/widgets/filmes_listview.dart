@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/filme_item.dart';
+import '../../../movies/lib/data/models/filme_item.dart';
 
 class FilmesListView extends StatelessWidget {
   const FilmesListView({super.key, required this.filmes, this.onTap});

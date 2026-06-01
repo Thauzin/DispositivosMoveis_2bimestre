@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies/data/models/genre.dart';
+
+import 'package:movies/models/genre.dart';        
 
 import 'package:movies/ui/theme/theme.dart';
 

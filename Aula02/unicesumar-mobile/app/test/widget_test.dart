@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:example_application/main.dart';
-import 'package:example_application/models/filme_item.dart';
+import '../../movies/lib/data/models/filme_item.dart';
 
 void main() {
   testWidgets('Renderiza tela inicial de filmes', (WidgetTester tester) async {

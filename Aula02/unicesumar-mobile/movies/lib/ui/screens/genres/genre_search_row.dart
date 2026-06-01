@@ -7,8 +7,9 @@ typedef OnSearch = void Function(String searchString);
 
 class GenreSearchRow extends ConsumerStatefulWidget {
   final OnSearch onSearch;
+  final String initialValue; // ✅ adicionado
 
-  const GenreSearchRow(this.onSearch, {super.key});
+  const GenreSearchRow(this.onSearch, {super.key, this.initialValue = ''}); // ✅
 
   @override
   ConsumerState<GenreSearchRow> createState() => _GenreSearchRowState();
@@ -21,7 +22,7 @@ class _GenreSearchRowState extends ConsumerState<GenreSearchRow> {
   @override
   void initState() {
     super.initState();
-    movieTextController = TextEditingController(text: '');
+    movieTextController = TextEditingController(text: widget.initialValue); // ✅ restaura
   }
 
   @override
@@ -63,10 +64,10 @@ class _GenreSearchRowState extends ConsumerState<GenreSearchRow> {
                 onPressed: () {
                   movieTextController.clear();
                 },
-                icon: const Icon(Icons.close, color: Colors.white,), // Close icon
+                icon: const Icon(Icons.close, color: Colors.white),
               ),
               prefixIcon: IconButton(
-                icon: const Icon(Icons.search, color: Colors.white,),
+                icon: const Icon(Icons.search, color: Colors.white),
                 onPressed: () {
                   widget.onSearch(movieTextController.text);
                 },

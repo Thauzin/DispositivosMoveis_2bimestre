@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:movies/data/models/favorite.dart';
+import 'package:movies/models/favorite.dart';
 import 'package:movies/utils/utils.dart';
 import 'package:movies/ui/movie_viewmodel.dart';
 
@@ -74,7 +74,7 @@ class FavoriteRow extends StatelessWidget {
                             SizedBox(
                               width: textWidth,
                               child: AutoSizeText(
-                                'Title',
+                                favorite.title,
                                 maxLines: 1,
                                 minFontSize: 10,
                                 style: Theme.of(context).textTheme.labelLarge,
@@ -83,7 +83,7 @@ class FavoriteRow extends StatelessWidget {
                             ),
                             addVerticalSpace( 4),
                             Text(
-                              '1972',
+                              yearFormat.format(favorite.releaseDate),
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             addVerticalSpace( 4),

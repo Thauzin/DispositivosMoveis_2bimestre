@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movies/data/models/movie_credits.dart';
+import 'package:movies/models/movie_credits.dart';
 
 import 'package:movies/ui/widgets/cast_image.dart';
 import 'package:movies/utils/utils.dart';

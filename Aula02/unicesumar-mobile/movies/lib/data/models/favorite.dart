@@ -1,11 +1,25 @@
-class Favorite {
-  final int movieId;
-  final String image;
-  bool favorite;
-  final String title;
-  final String overview;
-  final double popularity;
-  final DateTime releaseDate;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Favorite({required this.movieId, required this.image, required this.favorite, required this.title, required this.overview, required this.popularity, required this.releaseDate});
+part 'favorite.freezed.dart'; 
+part 'favorite.g.dart'; 
+
+@freezed
+class DBFavorite with _$DBFavorite {
+  const factory DBFavorite({
+    required int id,
+    required int movieId,
+    required String backdropPath,
+    required String posterPath,
+    required bool favorite,
+    required double popularity,
+    required DateTime releaseDate,
+    required String title,
+    required String overview,
+  }) = _DBFavorite;
+
+  // Add this private constructor
+  const DBFavorite._();
+
+  factory DBFavorite.fromJson(Map<String, dynamic> json) =>
+      _$DBFavoriteFromJson(json);
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:movies/data/models/favorite.dart';
-import 'package:movies/data/models/movie_videos.dart';
+import 'package:movies/models/favorite.dart';
+import 'package:movies/models/movie_videos.dart';
 enum ImageSize {
   small,
   large
